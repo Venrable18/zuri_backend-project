@@ -1,17 +1,15 @@
-const express = require("express");
-const { json } = require("express");
-const flights = require("./controllers/flightController");
-const models = require("./models/Flight");
-const routes = require("./routes/flightRoute");
+const express = require("express")
+const dotenv = require("dotenv")
+const {errorHandler} = require("./middleware/errorMiddleware")
+const port = process.env.PORT || 5000
 
-const app = express();
+const app = express()
 
-app.use(json());
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
-app.use("/", routes);
 
-const port = process.env.PORT || 3000;
+app.use("/", require("./routes/flightRoute"))
+app.use(errorHandler)
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(port, () => console.log(`server started on ${port}`))
