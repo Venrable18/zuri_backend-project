@@ -2,7 +2,7 @@
 const mongoose = require("mongoose")
 
 const flightSchema = mongoose.Schema({
-    text: {
+    title: {
         type: String,
         required: true,
     }, 
